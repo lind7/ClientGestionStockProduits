@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app  linda!';
+  showHideSidebar =  false;
+  onShowsidebarChange(showHideSidebar) {
+    this.showHideSidebar= this.showHideSidebar;
+
+  }
 }
