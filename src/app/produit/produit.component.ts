@@ -43,6 +43,7 @@ loadProduit() {
       error => {console.log('an error was occured when adding'); },
       () => { console.log('adding products was done'); console.log(p); }
     );
+    this.loadProduit();
   }
 
 }
