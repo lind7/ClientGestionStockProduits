@@ -1,8 +1,58 @@
-<p>produit works!</p>
-<ul>
-  <li *ngFor="let produit of produits">
-    Ref: {{produit.ref}},
-    quantité: {{produit.quantite}},
-    Prix unitaire: {{produit.prixUnitaire}}
-  </li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-7">
+       <table class="table table-hover ">
+         <thead>
+           <tr>
+             <th>Reference</th>
+             <th>quantite</th>
+             <th>prix unitaire</th>
+           </tr>
+         </thead>
+         <tbody>
+         <tr *ngFor="let produit of produits">
+           <td>Ref: {{produit.ref}}</td>
+           <td>quantité: {{produit.quantite}}</td>
+           <td>Prix unitaire: {{produit.prixUnitaire}}</td>
+         </tr>
+
+         </tbody>
+
+       </table>
+    </div>
+    <div class="col-lg-5">
+     <div class="card">
+       <div class="card-header bg-info text-white">
+          Ajouter Produit
+       </div>
+       <div class="card-body">
+         <form [formGroup]="produitForm">
+           <div class="form-group">
+                <label>reference</label>
+                 <input type="text"  class="form-control" formControlName="ref">
+             </div>
+           <div class="alert alert-danger"*ngIf="produitForm.controls['ref'].invalid && (produitForm.controls['ref'].touched || produitForm.controls['ref'].dirty)">
+             la reference est obligatoire!
+
+           </div>
+             <div class="form-group">
+                 <label>quantite</label>
+                 <input type="number"   class="form-control"formControlName="quantite">
+           </div>
+             <div class="form-group">
+                <label>prix Unitaire</label>
+               <input type="number"  class="form-control" formControlName="prixUnitaire">
+             </div>
+           <button class="btn btn-success" [disabled]="produitForm.pristine||produitForm.invalid" (click)="addProduit();"> Ajouter</button>
+         </form>
+       </div>
+       <div class="card-footer">
+        foot
+       </div>
+
+     </div>
+    </div>
+
+  </div>
+
+</div>

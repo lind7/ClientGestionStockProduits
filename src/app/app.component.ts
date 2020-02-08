@@ -6,10 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app  linda!';
+
   showHideSidebar =  false;
   onShowsidebarChange(showHideSidebar) {
-    this.showHideSidebar= this.showHideSidebar;
+    this.showHideSidebar = showHideSidebar;
+    this.showHideSidebar = this.showHideSidebar;
 
   }
 }

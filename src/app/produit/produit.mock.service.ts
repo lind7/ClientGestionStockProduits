@@ -6,7 +6,7 @@ export class ProduitMockService {
    constructor() {
      const p1: Produit = new Produit('livre', 50, 20);
      const p2: Produit = new Produit('cahier', 54, 200);
-     const p3: Produit = new Produit('stylo', 58, 300);
+     const p3: Produit = new Produit( );
 
      this.PRODUITS.push(p1);
      this.PRODUITS.push(p2);

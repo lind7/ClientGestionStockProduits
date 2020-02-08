@@ -5,19 +5,33 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ProduitComponent } from './produit/produit.component';
 import {ProduitMockService} from './produit/produit.mock.service';
-import {Produit} from './share/produit';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { ContentComponent } from './content/content.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {AppRoutingModule} from './app.routing.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {ProduitService} from './produit/produit.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProduitComponent
+    ProduitComponent,
+    NavbarComponent,
+    SidebarComponent,
+    ContentComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [ProduitMockService],
+  providers: [ ProduitService, ProduitMockService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
