@@ -4,6 +4,8 @@ import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {ArrayObservable} from 'rxjs/observable/ArrayObservable';
+import {Produit} from '../share/produit';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-produit',
@@ -13,17 +15,22 @@ import {ArrayObservable} from 'rxjs/observable/ArrayObservable';
 export class ProduitComponent implements OnInit {
 produits: Observable<any>;
 produitForm: FormGroup;
-  constructor(private produitService: ProduitService, private fb: FormBuilder) {
-    this.produitForm = this.fb.group({
-      ref: ['', Validators.required],
-      quantite: [''],
-      prixUnitaire: ['']
-    });
+operation: String = ' ';
+selectedProduit: Produit;
+  constructor(private produitService: ProduitService, private fb: FormBuilder, private route: ActivatedRoute) {
+  this.createForm();
   }
 
   ngOnInit() {
-    console.log('before loadProduit');
+    this.initProduit();
     this.loadProduit();
+  }
+  createForm() {
+  this.produitForm = this.fb.group({
+    ref: ['', Validators.required],
+    quantite: [''],
+    prixUnitaire: ['']
+  });
   }
 loadProduit() {
     this.produitService.getProduits()
@@ -39,11 +46,35 @@ loadProduit() {
     this.produitService.addProduit(p)
       .map( resp => resp.json())
       .subscribe(
-      data => {  this.loadProduit(); },
-      error => {console.log('an error was occured when adding'); },
-      () => { console.log('adding products was done'); console.log(p); }
-    );
+        res => {  this.initProduit(); this.loadProduit(); },
+        error => {console.log('an error was occured when adding'); },
+        () => { console.log('adding products was done'); console.log(p); }
+      );
     this.loadProduit();
   }
+
+  updateProduit() {
+    this.produitService.updateProduit(this.selectedProduit)
+      .subscribe(
+        res => {  this.initProduit(); this.loadProduit(); },
+        error => {console.log('an error was occured when adding'); },
+        () => { console.log('updating products was done');  }
+      );
+    this.loadProduit();
+  }
+  deleteProduit() {
+    this.produitService.deleteProduit(this.selectedProduit.ref)
+      .subscribe(
+        res => {
+          this.selectedProduit = new Produit();
+          this.loadProduit();
+        }
+      );
+    this.loadProduit();
+  }
+initProduit() {
+    this.selectedProduit = new Produit();
+     this.createForm();
+}
 
 }
